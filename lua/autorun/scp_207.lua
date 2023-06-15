@@ -17,9 +17,27 @@
 -- Functions
 scp_207 = {}
 -- Global Variables
-scp_207_CONFIG  = {}
+SCP_207_CONFIG  = {}
+-- Lang
+SCP_207_LANG = {}
 -- RootFolder path
-scp_207_CONFIG.RootFolder = "scp_207/"
+SCP_207_CONFIG.RootFolder = "scp_207/"
+
+/*
+* Allows to load all the language files that the addon can handle.
+* @string path Path containing the language files.
+* @string default Default language.
+* @table handledLanguage Array containing the supported languages.
+* @table langData Table containing all translations.
+*/
+function scp_207.LoadLanguage(path, handledLanguage, langData )
+    for key, value in ipairs(handledLanguage) do
+        local filename = path .. value .. ".lua"
+        include( filename )
+        if SERVER then AddCSLuaFile( filename ) end
+        assert(langData[value], "Language not found : ".. filename )
+    end
+end
 
 /*
 * Allows you to charge all the files in a folder.
@@ -37,6 +55,6 @@ function scp_207.LoadDirectory(pathFolder)
 end
 
 print("SCP-207 Loading . . .")
-scp_207.LoadDirectory(scp_207_CONFIG.RootFolder.."config/sh_scp207_config.lua", true)
---scramble.LoadDirectory(scp_207_CONFIG.RootFolder.."config/sv_scramble_config.lua", true)
+scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."config/sh_scp207_config.lua", true)
+--scramble.LoadDirectory(SCP_207_CONFIG.RootFolder.."config/sv_scramble_config.lua", true)
 print("SCP-207 Loaded!")

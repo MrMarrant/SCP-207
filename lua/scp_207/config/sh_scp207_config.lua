@@ -14,6 +14,19 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-scp_207.LoadDirectory(scp_207_CONFIG.RootFolder.."server/")
-scp_207.LoadDirectory(scp_207_CONFIG.RootFolder.."client/")
-scp_207.LoadDirectory(scp_207_CONFIG.RootFolder.."shared/")
+SCP_207_CONFIG.TimeDecay = 60 -- Numbers of second between each state.
+SCP_207_CONFIG.MaxLoop = 48 -- Max loop of the effect from SCP207, one loop equal to duration of SCP_207_CONFIG.TimeDecay
+SCP_207_CONFIG.IncrementStat = 0.1
+SCP_207_CONFIG.InitialChanceInstantDeath = 0
+SCP_207_CONFIG.HandledLanguage = {
+    "fr",
+}
+
+cvars.AddChangeCallback("gmod_language", function(name, old, new)
+    SCP_207_CONFIG.LangServer = new
+end)
+
+scp_207.LoadLanguage(SCP_207_CONFIG.RootFolder.."language/", SCP_207_CONFIG.HandledLanguage, SCP_207_LANG)
+scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."shared/")
+scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."server/")
+scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."client/")

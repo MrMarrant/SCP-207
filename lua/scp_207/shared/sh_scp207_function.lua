@@ -14,24 +14,15 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-if CLIENT then return end
-
-function scp_207.DropSCP207(ply, ent)
-	local LookForward = ply:EyeAngles():Forward()
-	local LookUp = ply:EyeAngles():Up()
-	local SCP207 = ents.Create( "scp_018" )
-	local DistanceToPos = 50
-	local PosObject = ply:GetShootPos() + LookForward * DistanceToPos + LookUp
-    PosObject.z = ply:GetPos().z
-
-	SCP207:SetPos( PosObject )
-	SCP207:SetAngles( ply:EyeAngles() )
-	SCP207:Spawn()
-	SCP207:Activate()
-	ent:Remove()
-end
-
-function scp_207.ConsumeSCP207(ply)
-
-
+/*
+* Returns the element to be translated according to the server language.
+* @table langData Array containing all translations.
+* @string name Element to translate.
+*/
+function scp_207.TranslateLanguage(langData, name)
+    local langUsed = TOUCAN_LIB_CONFIG.LangServer
+    if not langData[langUsed] then
+        langUsed = "en" -- Default lang is EN.
+    end
+    return string.format( langData[langUsed][ name ] or "Not Found" )
 end
