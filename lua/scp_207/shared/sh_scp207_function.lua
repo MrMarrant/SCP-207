@@ -20,7 +20,7 @@
 * @string name Element to translate.
 */
 function scp_207.TranslateLanguage(langData, name)
-    local langUsed = TOUCAN_LIB_CONFIG.LangServer
+    local langUsed = SCP_207_CONFIG.LangServer
     if not langData[langUsed] then
         langUsed = "en" -- Default lang is EN.
     end

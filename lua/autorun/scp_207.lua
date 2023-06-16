@@ -40,17 +40,23 @@ function scp_207.LoadLanguage(path, handledLanguage, langData )
 end
 
 /*
-* Allows you to charge all the files in a folder.
+* Allows you to load all the files in a folder.
 * @string path of the folder to load.
+* @bool isFile if the path is a file and not a folder.
 */
-function scp_207.LoadDirectory(pathFolder)
-    local files, directories = file.Find(pathFolder.."*", "LUA")
-    for key, value in pairs(files) do
-        AddCSLuaFile(pathFolder..value)
-        include(pathFolder..value)
-    end
-    for key, value in pairs(directories) do
-        scp_207.LoadDirectory(pathFolder..value)
+function scp_207.LoadDirectory(pathFolder, isFile)
+    if isFile then
+        AddCSLuaFile(pathFolder)
+        include(pathFolder)
+    else
+        local files, directories = file.Find(pathFolder.."*", "LUA")
+        for key, value in pairs(files) do
+            AddCSLuaFile(pathFolder..value)
+            include(pathFolder..value)
+        end
+        for key, value in pairs(directories) do
+            LoadDirectory(pathFolder..value)
+        end
     end
 end
 

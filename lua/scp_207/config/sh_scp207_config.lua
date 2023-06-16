@@ -17,9 +17,15 @@
 SCP_207_CONFIG.TimeDecay = 60 -- Numbers of second between each state.
 SCP_207_CONFIG.MaxLoop = 48 -- Max loop of the effect from SCP207, one loop equal to duration of SCP_207_CONFIG.TimeDecay
 SCP_207_CONFIG.IncrementStat = 0.1
-SCP_207_CONFIG.InitialChanceInstantDeath = 0
+SCP_207_CONFIG.InitialChanceInstantDeath = 4
+SCP_207_CONFIG.JobNotAllowed = {} -- TODO : Faire un fichier de config avec les jobs qui ne peuvent pas récupérer l'entité.
 SCP_207_CONFIG.HandledLanguage = {
     "fr",
+}
+SCP_207_CONFIG.DoorClass = {
+    prop_door_rotating = true,
+    func_door = true,
+    func_door_rotating = true
 }
 
 cvars.AddChangeCallback("gmod_language", function(name, old, new)
@@ -29,4 +35,4 @@ end)
 scp_207.LoadLanguage(SCP_207_CONFIG.RootFolder.."language/", SCP_207_CONFIG.HandledLanguage, SCP_207_LANG)
 scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."shared/")
 scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."server/")
-scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."client/")
+--scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."client/")

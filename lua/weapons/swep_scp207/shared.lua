@@ -66,6 +66,7 @@ function SWEP:Deploy()
 	return true
 end
 
+-- TODO : Faire un bruit de bouteille ouverte et de glutition
 function SWEP:PrimaryAttack()
 	self:SetNextPrimaryFire( CurTime() + self.PrimaryCooldown )
 	self:SendWeaponAnim( ACT_VM_PRIMARYATTACK )
@@ -77,8 +78,9 @@ function SWEP:PrimaryAttack()
 		self:GetOwner():SetAnimation( PLAYER_ATTACK1 )
 	end)
 	timer.Simple(NexIdle, function()
-		if(!self:IsValid() or !self:GetOwner():IsValid()) then return end
+		if(!self:IsValid() or !self:GetOwner():IsValid() or CLIENT) then return end
 		scp_207.ConsumeSCP207(self:GetOwner())
+		self:Remove()
 	end)
 end
 
