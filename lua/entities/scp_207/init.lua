@@ -19,7 +19,6 @@ include("shared.lua")
 
 -- TODO : Mettre les bon sons.
 local PhysisSoundLow = Sound( "bouncy_ball/ball_noise.mp3" )
-local PhysisSoundHeavy = Sound( "bouncy_ball/ball_noise.mp3" )
 local BreakSound = Sound( "bouncy_ball/ball_noise.mp3" )
 local PickUpSound = Sound( "bouncy_ball/ball_noise.mp3" )
 

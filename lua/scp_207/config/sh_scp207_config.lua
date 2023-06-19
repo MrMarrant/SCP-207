@@ -20,6 +20,7 @@ SCP_207_CONFIG.IncrementStat = 0.1
 SCP_207_CONFIG.InitialChanceInstantDeath = 4
 SCP_207_CONFIG.RadiusCollisionDoor = 20
 SCP_207_CONFIG.VelocityMinDestroyDoor = 200
+SCP_207_CONFIG.DamageTakeBreakingDoor = 40
 SCP_207_CONFIG.JobNotAllowed = {} -- TODO : Faire un fichier de config avec les jobs qui ne peuvent pas récupérer l'entité.
 SCP_207_CONFIG.HandledLanguage = {
     "fr",

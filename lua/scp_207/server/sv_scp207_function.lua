@@ -162,6 +162,7 @@ function scp_207.DestroyDoor(door, ply)
 	else
 		door:Fire("open")
 	end
+	ply:TakeDamage(SCP_207_CONFIG.DamageTakeBreakingDoor, ply, ply)
 end
 
 
