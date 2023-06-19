@@ -18,6 +18,8 @@ SCP_207_CONFIG.TimeDecay = 60 -- Numbers of second between each state.
 SCP_207_CONFIG.MaxLoop = 48 -- Max loop of the effect from SCP207, one loop equal to duration of SCP_207_CONFIG.TimeDecay
 SCP_207_CONFIG.IncrementStat = 0.1
 SCP_207_CONFIG.InitialChanceInstantDeath = 4
+SCP_207_CONFIG.RadiusCollisionDoor = 20
+SCP_207_CONFIG.VelocityMinDestroyDoor = 200
 SCP_207_CONFIG.JobNotAllowed = {} -- TODO : Faire un fichier de config avec les jobs qui ne peuvent pas récupérer l'entité.
 SCP_207_CONFIG.HandledLanguage = {
     "fr",
@@ -27,6 +29,7 @@ SCP_207_CONFIG.DoorClass = {
     func_door = true,
     func_door_rotating = true
 }
+SCP_207_CONFIG.PlayersCanBreakDoors = {} -- List of players that has drink SCP 207
 
 cvars.AddChangeCallback("gmod_language", function(name, old, new)
     SCP_207_CONFIG.LangServer = new
