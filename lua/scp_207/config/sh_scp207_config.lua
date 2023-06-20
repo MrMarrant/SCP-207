@@ -26,6 +26,7 @@ SCP_207_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
 SCP_207_CONFIG.JobNotAllowed = {} -- TODO : Faire un fichier de config avec les jobs qui ne peuvent pas récupérer l'entité.
 SCP_207_CONFIG.HandledLanguage = {
     "fr",
+    "en",
 }
 SCP_207_CONFIG.DoorClass = {
     prop_door_rotating = true,
