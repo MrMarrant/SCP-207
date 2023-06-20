@@ -116,7 +116,7 @@ function scp_207.EventDoorsDestroyable(ply)
 			for class, value in pairs(SCP_207_CONFIG.DoorClass) do
 				local DoorsFounded = ents.FindByClass( class )
 				for key, door in ipairs(DoorsFounded) do
-					local PlayersFound = ents.FindInSphere( door:Getpos(), SCP_207_CONFIG.RadiusCollisionDoor )
+					local PlayersFound = ents.FindInSphere( door:GetPos(), SCP_207_CONFIG.RadiusCollisionDoor )
 					for key, entPly in ipairs(PlayersFound) do
 						if (entPly:IsPlayer() and entPly.scp207_CanDestroyDoors) then
 							scp_207.DestroyDoor(door, entPly)
@@ -140,8 +140,6 @@ function scp_207.DestroyDoor(door, ply)
 	local PhysPly = ply:GetPhysicsObject()
 	if (PhysPly:GetVelocity():Length() < SCP_207_CONFIG.VelocityMinDestroyDoor) then return end
 
-	door:EmitSound("doors/heavy_metal_stop1.wav",350,120)
-
 	if (door:GetClass() == "prop_door_rotating") then
 		local BrokenDoor = ents.Create("prop_physics")
 		BrokenDoor:SetPos(door:GetPos())
@@ -159,10 +157,19 @@ function scp_207.DestroyDoor(door, ply)
 		if IsValid(PhysBrokenDoor) then
 			PhysBrokenDoor:ApplyForceOffset(ply:GetForward() * 500, PhysBrokenDoor:GetMassCenter())
 		end
-	else
+		door:EmitSound("doors/heavy_metal_stop1.wav",350,120)
+		ply:TakeDamage(SCP_207_CONFIG.DamageTakeBreakingDoor, ply, ply)
+
+	elseif(!scp_207.DoorIsOpen( door )) then
 		door:Fire("open")
+		door.IsBreak = true
+		timer.Simple(2, function() -- When door are open, while they are opening, they are still in the mode 'close', so it can spam during this time.
+			if (!door:IsValid()) then return end
+			door.IsBreak = nil
+		end)
+		door:EmitSound("doors/heavy_metal_stop1.wav",350,120)
+		ply:TakeDamage(SCP_207_CONFIG.DamageTakeBreakingDoor, ply, ply)
 	end
-	ply:TakeDamage(SCP_207_CONFIG.DamageTakeBreakingDoor, ply, ply)
 end
 
 
@@ -183,10 +190,22 @@ function scp_207.CureEffect(ply)
 
 
 	-- TODO : Remove overlay
-	-- TODO : Check if SCP_207_CONFIG.PlayersCanBreakDoors is nil and remove hook on door.
 	SCP_207_CONFIG.PlayersCanBreakDoors[ply:EntIndex()] = nil
 	ply.scp207_CanDestroyDoors = nil
 	scp_207.RemoveEventDoorsDestroyable()
 
 	ply.HasDrinkSCP207 = nil
+end
+
+function scp_207.DoorIsOpen( door )
+	if (door.IsBreak) then return true end
+	local doorClass = door:GetClass()
+
+	if ( doorClass == "func_door" or doorClass == "func_door_rotating" ) then
+		return door:GetInternalVariable( "m_toggle_state" ) == 0
+	elseif ( doorClass == "prop_door_rotating" ) then
+		return door:GetInternalVariable( "m_eDoorState" ) ~= 0
+	else
+		return false
+	end
 end

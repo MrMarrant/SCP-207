@@ -18,9 +18,9 @@ SCP_207_CONFIG.TimeDecay = 60 -- Numbers of second between each state.
 SCP_207_CONFIG.MaxLoop = 48 -- Max loop of the effect from SCP207, one loop equal to duration of SCP_207_CONFIG.TimeDecay
 SCP_207_CONFIG.IncrementStat = 0.1
 SCP_207_CONFIG.InitialChanceInstantDeath = 4
-SCP_207_CONFIG.RadiusCollisionDoor = 20
-SCP_207_CONFIG.VelocityMinDestroyDoor = 200
-SCP_207_CONFIG.DamageTakeBreakingDoor = 40
+SCP_207_CONFIG.RadiusCollisionDoor = 10
+SCP_207_CONFIG.VelocityMinDestroyDoor = 300
+SCP_207_CONFIG.DamageTakeBreakingDoor = 30
 SCP_207_CONFIG.JobNotAllowed = {} -- TODO : Faire un fichier de config avec les jobs qui ne peuvent pas récupérer l'entité.
 SCP_207_CONFIG.HandledLanguage = {
     "fr",
