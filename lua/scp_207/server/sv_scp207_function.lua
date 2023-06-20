@@ -46,8 +46,10 @@ function scp_207.ConsumeSCP207(ply)
         if not IsValid( ply ) then return end
 		print(index)
 		scp_207.IncrementStat(ply)
-		scp_207.PrintMessageInfo(ply)
-		if(index == 1) then scp_207.EventDoorsDestroyable(ply) end -- TODO : Le faire à partir de 24e minute
+
+		if (index == 1) then scp_207.PrintMessageInfo(ply, scp_207.TranslateLanguage(SCP_207_LANG, "InitialIncreaseStats")) end
+		if (index % 2  == 0) then scp_207.PrintMessageInfo(ply, scp_207.TranslateLanguage(SCP_207_LANG, "IncreaseStats_"..math.random(index == 24 and 6 or 1, index == 24 and 6 or 5))) end
+		if (index == 15) then scp_207.EventDoorsDestroyable(ply) end
 		if (index == 10) then scp_207.StartOverlayEffect(ply) end
 		if (index >= 24) then
 			scp_207.InstanDeath(ply, percent)
@@ -87,7 +89,7 @@ function scp_207.IncrementStat(ply)
 
 	ply:SetWalkSpeed( ply:GetWalkSpeed() + WalkSpeed * SCP_207_CONFIG.IncrementStat )
 	ply:SetRunSpeed( ply:GetRunSpeed()  + RunSpeed * SCP_207_CONFIG.IncrementStat )
-	ply:SetJumpPower( ply:GetJumpPower()  + JumpPower * SCP_207_CONFIG.IncrementStat )
+	ply:SetJumpPower( ply:GetJumpPower()  + JumpPower * SCP_207_CONFIG.IncrementStatJump )
 end
 
 /*
@@ -97,8 +99,10 @@ function scp_207.InstanDeath(ply, percent)
     if (percent >= math.Rand(1, 100)) then ply:Kill() end
 end
 
-function scp_207.PrintMessageInfo(ply)
-	-- TODO : Choper un texte random et l'envoyer coté client
+function scp_207.PrintMessageInfo(ply, text)
+	net.Start(SCP_207_CONFIG.TextToSendToServer)
+		net.WriteString(text)
+	net.Send(ply)
 end
 
 function scp_207.StartOverlayEffect(ply)

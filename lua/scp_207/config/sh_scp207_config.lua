@@ -17,10 +17,12 @@
 SCP_207_CONFIG.TimeDecay = 60 -- Numbers of second between each state.
 SCP_207_CONFIG.MaxLoop = 48 -- Max loop of the effect from SCP207, one loop equal to duration of SCP_207_CONFIG.TimeDecay
 SCP_207_CONFIG.IncrementStat = 0.1
+SCP_207_CONFIG.IncrementStatJump = 0.05
 SCP_207_CONFIG.InitialChanceInstantDeath = 4
 SCP_207_CONFIG.RadiusCollisionDoor = 10
 SCP_207_CONFIG.VelocityMinDestroyDoor = 300
 SCP_207_CONFIG.DamageTakeBreakingDoor = 30
+SCP_207_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
 SCP_207_CONFIG.JobNotAllowed = {} -- TODO : Faire un fichier de config avec les jobs qui ne peuvent pas récupérer l'entité.
 SCP_207_CONFIG.HandledLanguage = {
     "fr",
@@ -32,6 +34,10 @@ SCP_207_CONFIG.DoorClass = {
 }
 SCP_207_CONFIG.PlayersCanBreakDoors = {} -- List of players that has drink SCP 207
 
+-- Network Value, EDIT ONLY IF NAMES ARE ALREADY TAKEN.
+SCP_207_CONFIG.TextToSendToServer = "SCP_207_CONFIG.TextToSendToServer"
+
+-- Get Lang of the server
 cvars.AddChangeCallback("gmod_language", function(name, old, new)
     SCP_207_CONFIG.LangServer = new
 end)
@@ -39,4 +45,4 @@ end)
 scp_207.LoadLanguage(SCP_207_CONFIG.RootFolder.."language/", SCP_207_CONFIG.HandledLanguage, SCP_207_LANG)
 scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."shared/")
 scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."server/")
---scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."client/")
+scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."client/")

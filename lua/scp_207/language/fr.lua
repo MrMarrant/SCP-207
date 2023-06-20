@@ -17,9 +17,11 @@
 SCP_207_LANG.fr = {}
 
 -- Text Shown when player increase in stat speed.
-SCP_207_LANG.fr.TextIncreaseStats = {}
-SCP_207_LANG.fr.TextIncreaseStats[1] = ""
-SCP_207_LANG.fr.TextIncreaseStats[2] = ""
-SCP_207_LANG.fr.TextIncreaseStats[3] = ""
-SCP_207_LANG.fr.TextIncreaseStats[4] = ""
-SCP_207_LANG.fr.TextIncreaseStats[5] = ""
+SCP_207_LANG.fr.InitialIncreaseStats = "Vous ne ressentez plus le besoin de dormir"
+SCP_207_LANG.fr.IncreaseStats_1 = "Vous avez gagné en capacité intellectuelle"
+SCP_207_LANG.fr.IncreaseStats_2 = "Votre QI à augmenté"
+SCP_207_LANG.fr.IncreaseStats_3 = "Vos fonctions motrices sont meilleures qu'avant"
+SCP_207_LANG.fr.IncreaseStats_4 = "Vos capacités physique ont augmenté"
+SCP_207_LANG.fr.IncreaseStats_5 = "Vous réagissez plus rapidement"
+
+SCP_207_LANG.fr.IncreaseStats_6 = "Vous commencer à subir du stress, vos gestes doivent paraître soigneux"
