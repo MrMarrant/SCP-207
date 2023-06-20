@@ -17,11 +17,11 @@
 SCP_207_LANG.en = {}
 
 -- Text Shown when player increase in stat speed.
-SCP_207_LANG.en.InitialIncreaseStats = "You no longer feel the need to sleep".
-SCP_207_LANG.en.IncreaseStats_1 = "You have gained in intellectual capacity".
-SCP_207_LANG.en.IncreaseStats_2 = "Your IQ has increased".
-SCP_207_LANG.en.IncreaseStats_3 = "Your motor functions are better than before".
-SCP_207_LANG.en.IncreaseStats_4 = "Your physical abilities have increased".
-SCP_207_LANG.en.IncreaseStats_5 = "You react faster".
+SCP_207_LANG.en.InitialIncreaseStats = "You no longer feel the need to sleep"
+SCP_207_LANG.en.IncreaseStats_1 = "You have gained in intellectual capacity"
+SCP_207_LANG.en.IncreaseStats_2 = "Your IQ has increased"
+SCP_207_LANG.en.IncreaseStats_3 = "Your motor functions are better than before"
+SCP_207_LANG.en.IncreaseStats_4 = "Your physical abilities have increased"
+SCP_207_LANG.en.IncreaseStats_5 = "You react faster"
 
 SCP_207_LANG.en.IncreaseStats_6 = "You are starting to feel stress, your gestures must appear careful"
