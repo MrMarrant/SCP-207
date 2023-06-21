@@ -18,9 +18,9 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 -- TODO : Mettre les bon sons.
-local PhysisSoundLow = Sound( "bouncy_ball/ball_noise.mp3" )
-local BreakSound = Sound( "bouncy_ball/ball_noise.mp3" )
-local PickUpSound = Sound( "bouncy_ball/ball_noise.mp3" )
+local PhysicSoundLow = Sound( "physics/glass/glass_bottle_impact_hard"..math.random(1, 3)..".wav" )
+local BreakSound = Sound( "physics/glass/glass_bottle_break"..math.random(1, 2)..".wav" )
+local PickUpSound = Sound( "physics/glass/glass_sheet_impact_soft1.wav" )
 
 function ENT:Initialize()
 	self:SetModel( "models/bouncy_ball/bouncy_ball.mdl" ) -- TODO : Chercher le modèle.
@@ -38,7 +38,7 @@ function ENT:PhysicsCollide( data, physobj )
 		self:Remove()
 		sound.Play( BreakSound, self:GetPos(), 75, math.random( 50, 160 ) )
 	else
-		sound.Play( PhysisSoundLow, self:GetPos(), 75, math.random( 50, 160 ) )	
+		sound.Play( PhysicSoundLow, self:GetPos(), 75, math.random( 50, 160 ) )	
 	end
 end
 

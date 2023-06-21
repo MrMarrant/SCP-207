@@ -44,8 +44,8 @@ SWEP.DrawAmmo = false
 -- Variables Personnal to this weapon --
 -- [[ STATS WEAPON ]]
 SWEP.PrimaryCooldown = 3
--- TODO : Mettre les bon sons.
-local DrinkSound = Sound( "bouncy_ball/ball_noise.mp3" )
+
+local DrinkSound = Sound( "scp_207/drink.mp3" )
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType( self.HoldType )
