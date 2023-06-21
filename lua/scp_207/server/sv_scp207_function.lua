@@ -44,13 +44,10 @@ function scp_207.ConsumeSCP207(ply)
 	scp_207.GetPreviousStatPlayer(ply)
 	timer.Create("Timer.scp207_Effect_"..ply:EntIndex(), SCP_207_CONFIG.TimeDecay, SCP_207_CONFIG.MaxLoop, function()
         if not IsValid( ply ) then return end
-		print(index)
-		scp_207.IncrementStat(ply)
 
-		if (index == 1) then scp_207.PrintMessageInfo(ply, scp_207.TranslateLanguage(SCP_207_LANG, "InitialIncreaseStats")) end
-		if (index % 2  == 0) then scp_207.PrintMessageInfo(ply, scp_207.TranslateLanguage(SCP_207_LANG, "IncreaseStats_"..math.random(index == 24 and 6 or 1, index == 24 and 6 or 5))) end
-		if (index == 15) then scp_207.EventDoorsDestroyable(ply) end
-		if (index == 10) then scp_207.StartOverlayEffect(ply) end
+		scp_207.IncrementStat(ply)
+		scp_207.ApplyStateEffect(ply, index)
+
 		if (index >= 24) then
 			scp_207.InstanDeath(ply, percent)
 
@@ -60,6 +57,23 @@ function scp_207.ConsumeSCP207(ply)
 		end
         index = index + 1
     end)
+end
+
+/*
+* Function that apply effects or events to be performed depending on the stage of the effect from SCP-207.
+* @Player ply The player affected by SCP-207.
+* @number index The curent state of the effect.
+*/
+function scp_207.ApplyStateEffect(ply, index)
+    if (!IsValid(ply) or type(currentDataState) != "number") then return end
+
+	local DataState = SCP_207_CONFIG.TableStateEffect[index]
+	if (DataState) then
+		if (DataState.PrintMessageInfo) then scp_207.PrintMessageInfo(ply, DataState.PrintMessageInfo) end
+		if (DataState.StartOverlayEffect) then scp_207.StartOverlayEffect(ply) end
+		if (DataState.EventDoorsDestroyable) then scp_207.EventDoorsDestroyable(ply) end
+	end
+	if (index % 2  == 0) then scp_207.PrintMessageInfo(ply, scp_207.TranslateLanguage(SCP_207_LANG, "IncreaseStats_"..math.random(1, 5))) end
 end
 
 /*
