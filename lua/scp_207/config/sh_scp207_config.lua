@@ -38,6 +38,8 @@ SCP_207_CONFIG.PlayersCanBreakDoors = {} -- List of players that has drink SCP 2
 
 -- Network Value, EDIT ONLY IF NAMES ARE ALREADY TAKEN.
 SCP_207_CONFIG.TextToSendToServer = "SCP_207_CONFIG.TextToSendToServer"
+SCP_207_CONFIG.StartOverlayEffect = "SCP_207_CONFIG.StartOverlayEffect"
+SCP_207_CONFIG.RemoveOverlayEffect = "SCP_207_CONFIG.RemoveOverlayEffect"
 
 -- Get Lang of the server
 cvars.AddChangeCallback("gmod_language", function(name, old, new)

@@ -1,6 +1,8 @@
 if CLIENT then return end
 
 util.AddNetworkString( SCP_207_CONFIG.TextToSendToServer )
+util.AddNetworkString( SCP_207_CONFIG.StartOverlayEffect )
+util.AddNetworkString( SCP_207_CONFIG.RemoveOverlayEffect )
 
 -- Eevent & effetc to apply to a player, depend on the state.
 SCP_207_CONFIG.TableStateEffect = SCP_207_CONFIG.TableStateEffect or {}

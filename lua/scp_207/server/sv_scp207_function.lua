@@ -70,7 +70,7 @@ function scp_207.ApplyStateEffect(ply, index)
 	local DataState = SCP_207_CONFIG.TableStateEffect[index]
 	if (DataState) then
 		if (DataState.PrintMessageInfo) then scp_207.PrintMessageInfo(ply, DataState.PrintMessageInfo) end
-		if (DataState.StartOverlayEffect) then scp_207.StartOverlayEffect(ply) end
+		if (DataState.StartOverlayEffect) then scp_207.StartOverlayEffect(ply, index) end
 		if (DataState.EventDoorsDestroyable) then scp_207.EventDoorsDestroyable(ply) end
 	end
 	if (index % 2  == 0) then scp_207.PrintMessageInfo(ply, scp_207.TranslateLanguage(SCP_207_LANG, "IncreaseStats_"..math.random(1, 5))) end
@@ -119,10 +119,17 @@ function scp_207.PrintMessageInfo(ply, text)
 	net.Send(ply)
 end
 
-function scp_207.StartOverlayEffect(ply)
-	-- TODO : Faire l'overlay ou l'effet de floue progressif jusqu'à 24m ou jusqu'à 48
+function scp_207.StartOverlayEffect(ply, index)
+	local IterationBySeconds = (SCP_207_CONFIG.MaxLoop - index) * SCP_207_CONFIG.TimeDecay
+	net.Start(SCP_207_CONFIG.StartOverlayEffect)
+		net.WriteUInt(IterationBySeconds, 12) --! Max is 4095 with 12
+	net.Send(ply)
 end
 
+function scp_207.RemoveOverlayEffect(ply)
+	net.Start(SCP_207_CONFIG.RemoveOverlayEffect)
+	net.Send(ply)
+end
 /*
 * DEPRECATED
 */
@@ -207,7 +214,7 @@ function scp_207.CureEffect(ply)
 	end
 
 
-	-- TODO : Remove overlay
+	scp_207.RemoveOverlayEffect(ply)
 	SCP_207_CONFIG.PlayersCanBreakDoors[ply:EntIndex()] = nil
 	ply.scp207_CanDestroyDoors = nil
 	scp_207.RemoveEventDoorsDestroyable()
