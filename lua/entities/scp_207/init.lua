@@ -53,7 +53,8 @@ function ENT:OnTakeDamage( dmginfo )
 end
 
 function ENT:Use( ply)
-	--TODO : Check si le job du joueur n'est pas interdit de récup l'entité
+	if(SCP_207_CONFIG.JobNotAllowed[team.GetName(ply:Team())]) then return end
+
 	sound.Play( PickUpSound, ply:GetPos(), 75, math.random( 50, 160 ) )	
 	self:Remove()
 	ply:Give("swep_scp207")
