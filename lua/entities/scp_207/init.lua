@@ -23,13 +23,15 @@ local BreakSound = Sound( "physics/glass/glass_bottle_break"..math.random(1, 2).
 local PickUpSound = Sound( "physics/glass/glass_sheet_impact_soft1.wav" )
 
 function ENT:Initialize()
-	self:SetModel( "models/bouncy_ball/bouncy_ball.mdl" ) -- TODO : Chercher le modèle.
+	self:SetModel( "models/scp_207/scp_207.mdl" )
 	self:RebuildPhysics()
 end
 
 function ENT:RebuildPhysics( value )
-	self:SetSolid( SOLID_VPHYSICS )
+	self:PhysicsInit( SOLID_VPHYSICS ) 
 	self:SetMoveType(MOVETYPE_VPHYSICS)
+	self:SetSolid( SOLID_VPHYSICS ) 
+	self:SetUseType(SIMPLE_USE)
 	self:PhysWake()
 end
 

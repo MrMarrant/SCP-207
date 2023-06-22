@@ -56,8 +56,8 @@ if not file.Exists(SCP_207_CONFIG.PathJobNotAllowed, "DATA") then
     file.Write(SCP_207_CONFIG.PathJobNotAllowed, util.TableToJSON(SERVER_VALUES, true))
 end
 
-local data = SCP_207_CONFIG.GetDataFromFile(SCP_207_CONFIG.PathJobNotAllowed)
-SCP_207_CONFIG.JobNotAllowed =  = data
+local data = util.JSONToTable(file.Read(SCP_207_CONFIG.PathJobNotAllowed) or "") or {}
+SCP_207_CONFIG.JobNotAllowed = data
 
 scp_207.LoadLanguage(SCP_207_CONFIG.RootFolder.."language/", SCP_207_CONFIG.HandledLanguage, SCP_207_LANG)
 scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."shared/")
