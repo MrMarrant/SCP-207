@@ -62,5 +62,6 @@ end
 
 print("SCP-207 Loading . . .")
 scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."config/sh_scp207_config.lua", true)
+scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."config/cl_scp207_config.lua", true)
 scp_207.LoadDirectory(SCP_207_CONFIG.RootFolder.."config/sv_scp207_config.lua", true)
 print("SCP-207 Loaded!")
