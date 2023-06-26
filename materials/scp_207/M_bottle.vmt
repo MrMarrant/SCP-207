@@ -1,0 +1,12 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "scp_207/M_cola_baseColor"
+//$alphatest 1
+$translucent 1
+$additive 1
+
+	$bumpmap "scp_207/M_cola_normal"
+	$envmap "env_cubemap"
+	$envmaptint [.3 .3 .3]
+	$nocull 1
+}
