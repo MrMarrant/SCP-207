@@ -23,7 +23,7 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "SCP"
-SWEP.ViewModel = Model( "models/weapons/v_scp018.mdl" ) -- TODO : Changer le modèle
+SWEP.ViewModel = Model( "models/weapons/scp_207/v_scp_207.mdl" )
 SWEP.WorldModel = ""
 
 SWEP.ViewModelFOV = 65
@@ -43,7 +43,7 @@ SWEP.DrawAmmo = false
 
 -- Variables Personnal to this weapon --
 -- [[ STATS WEAPON ]]
-SWEP.PrimaryCooldown = 3
+SWEP.PrimaryCooldown = 3.5
 
 local DrinkSound = Sound( "scp_207/drink.mp3" )
 
@@ -68,14 +68,12 @@ function SWEP:Deploy()
 	return true
 end
 
--- TODO : Faire un bruit de bouteille ouverte et de glutition
 function SWEP:PrimaryAttack()
 	self:SetNextPrimaryFire( CurTime() + self.PrimaryCooldown )
 	self:SendWeaponAnim( ACT_VM_PRIMARYATTACK )
 	local VMAnim = self:GetOwner():GetViewModel()
 	local NexIdle = VMAnim:SequenceDuration() / VMAnim:GetPlaybackRate()
-	NexIdle = NexIdle - 0.3
-	timer.Simple(NexIdle/2, function()
+	timer.Simple(NexIdle - 2.5, function()
 		if(!self:IsValid()) then return end
 		sound.Play( DrinkSound, self:GetOwner():GetPos(), 75 )	
 		self:GetOwner():SetAnimation( PLAYER_ATTACK1 )

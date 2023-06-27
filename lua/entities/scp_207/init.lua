@@ -36,10 +36,10 @@ function ENT:RebuildPhysics( value )
 end
 
 function ENT:PhysicsCollide( data, physobj )
-	if ( data.Speed > 100 and data.DeltaTime > 0.01) then
+	if ( data.Speed > 250 and data.DeltaTime > 0.01) then
 		self:Remove()
 		sound.Play( BreakSound, self:GetPos(), 75, math.random( 50, 160 ) )
-	else
+	elseif (data.Speed > 20 and data.DeltaTime > 0.01) then
 		sound.Play( PhysicSoundLow, self:GetPos(), 75, math.random( 50, 160 ) )	
 	end
 end
