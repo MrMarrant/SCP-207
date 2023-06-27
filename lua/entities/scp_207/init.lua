@@ -20,7 +20,16 @@ include("shared.lua")
 -- TODO : Mettre les bon sons.
 local PhysicSoundLow = Sound( "physics/glass/glass_bottle_impact_hard"..math.random(1, 3)..".wav" )
 local BreakSound = Sound( "physics/glass/glass_bottle_break"..math.random(1, 2)..".wav" )
-local PickUpSound = Sound( "physics/glass/glass_sheet_impact_soft1.wav" )
+local PickUpSound = Sound( "scp_207/pickup.mp3" )
+
+function ENT:BreakEntity()
+	local effectdata = EffectData()
+
+	effectdata:SetOrigin( self:GetPos() )
+	sound.Play( BreakSound, self:GetPos(), 75, math.random( 50, 160 ) )
+	util.Effect( "GlassImpact", effectdata )
+	self:Remove()
+end
 
 function ENT:Initialize()
 	self:SetModel( "models/scp_207/scp_207.mdl" )
@@ -37,8 +46,7 @@ end
 
 function ENT:PhysicsCollide( data, physobj )
 	if ( data.Speed > 250 and data.DeltaTime > 0.01) then
-		self:Remove()
-		sound.Play( BreakSound, self:GetPos(), 75, math.random( 50, 160 ) )
+		self:BreakEntity(pos)
 	elseif (data.Speed > 20 and data.DeltaTime > 0.01) then
 		sound.Play( PhysicSoundLow, self:GetPos(), 75, math.random( 50, 160 ) )	
 	end
@@ -46,9 +54,8 @@ end
 
 function ENT:OnTakeDamage( dmginfo )
 	local DmgReceive = dmginfo:GetDamage()
-	if (DmgReceive > 30) then
-		self:Remove()
-		sound.Play( BreakSound, self:GetPos(), 75, math.random( 50, 160 ) )
+	if (DmgReceive >= 5) then
+		self:BreakEntity(pos)
 	else
 		return 0
 	end
