@@ -68,7 +68,7 @@ function scp_207.ApplyStateEffect(ply, index)
     if (!IsValid(ply) or type(index) != "number") then return end
 
 	local DataState = SCP_207_CONFIG.TableStateEffect[index]
-	print(index)
+
 	if (DataState) then
 		if (DataState.PrintMessageInfo) then scp_207.PrintMessageInfo(ply, DataState.PrintMessageInfo) end
 		if (DataState.StartOverlayEffect) then scp_207.StartOverlayEffect(ply, index) end
