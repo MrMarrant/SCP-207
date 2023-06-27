@@ -5,12 +5,12 @@ if SERVER then return end
 */
 function scp_207.DisplayOverlay(ply)
     if (!IsValid(ply)) then return end
-
     if (ply.scp207_Overlay) then return end -- we don't want two overlay.
+
     local OverlaySCP207 = vgui.Create("DImage")
-    OverlaySCP207:SetImageColor(Color(0, 0, 0, 0))
+    OverlaySCP207:SetImageColor(Color(60, 0, 0, 0))
     OverlaySCP207:SetSize(SCP_207_CONFIG.ScrW, SCP_207_CONFIG.ScrH)
-    OverlaySCP207:SetImage("overlay_scp207/overlay_scp207_1.jpg")
+    OverlaySCP207:SetImage("overlay_scp207/overlay_scp207.png")
     ply.scp207_Overlay = OverlaySCP207
 end
 
@@ -33,7 +33,7 @@ net.Receive(SCP_207_CONFIG.StartOverlayEffect, function ( )
         if (!IsValid(ply)) then return end
         if (!ply.scp207_Overlay) then return end
 
-        ply.scp207_Overlay:SetImageColor(Color(0, 0, 0, saturation))
+        ply.scp207_Overlay:SetImageColor(Color(60, 0, 0, saturation))
         saturation = saturation + incrementSaturation
     end)
 end)

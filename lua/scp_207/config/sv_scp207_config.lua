@@ -9,7 +9,7 @@ SCP_207_CONFIG.TableStateEffect = SCP_207_CONFIG.TableStateEffect or {}
 SCP_207_CONFIG.TableStateEffect[1] = {
     PrintMessageInfo = scp_207.TranslateLanguage(SCP_207_LANG, "InitialIncreaseStats")
 }
-SCP_207_CONFIG.TableStateEffect[10] = {
+SCP_207_CONFIG.TableStateEffect[8] = {
     StartOverlayEffect = true
 }
 SCP_207_CONFIG.TableStateEffect[15] = {

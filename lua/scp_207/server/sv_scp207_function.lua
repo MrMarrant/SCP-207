@@ -48,12 +48,12 @@ function scp_207.ConsumeSCP207(ply)
 		scp_207.IncrementStat(ply)
 		scp_207.ApplyStateEffect(ply, index)
 
-		if (index >= 24) then
+		if (index >= 30) then
 			scp_207.InstanDeath(ply, percent)
 
 			if (!ply:Alive()) then return end
 
-			percent =  math.Clamp( percent +  4, 0, 100 )
+			percent =  math.Clamp( percent +  SCP_207_CONFIG.IncrementChanceDeath, 0, 100 )
 		end
         index = index + 1
     end)
@@ -65,9 +65,10 @@ end
 * @number index The curent state of the effect.
 */
 function scp_207.ApplyStateEffect(ply, index)
-    if (!IsValid(ply) or type(currentDataState) != "number") then return end
+    if (!IsValid(ply) or type(index) != "number") then return end
 
 	local DataState = SCP_207_CONFIG.TableStateEffect[index]
+	print(index)
 	if (DataState) then
 		if (DataState.PrintMessageInfo) then scp_207.PrintMessageInfo(ply, DataState.PrintMessageInfo) end
 		if (DataState.StartOverlayEffect) then scp_207.StartOverlayEffect(ply, index) end
@@ -233,4 +234,21 @@ function scp_207.DoorIsOpen( door )
 	else
 		return false
 	end
+end
+
+/*
+* Function used for drop the entiot if it is equip by a player.
+* @Player ply The player who will drop the entity.
+*/
+function scp_207.DropSCP2017(ply)
+    if (!IsValid(ply)) then return end
+
+    if (ply:HasWeapon("swep_scp207")) then
+
+        local ent = ents.Create( "scp_207" )
+        ent:SetPos( ply:GetShootPos() + ply:GetAimVector() * 20 )
+        ent:SetAngles( ply:EyeAngles() + Angle(0, 48, 0))
+        ent:Spawn()
+        ent:Activate()
+    end
 end
