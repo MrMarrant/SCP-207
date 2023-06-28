@@ -53,7 +53,7 @@ function scp_207.ConsumeSCP207(ply)
 
 			if (!ply:Alive()) then return end
 
-			percent =  math.Clamp( percent +  SCP_207_CONFIG.IncrementChanceDeath, 0, 100 )
+			percent =  index >= 48 and 100 or math.Clamp( percent +  SCP_207_CONFIG.IncrementChanceDeath, 0, 100 )
 		end
         index = index + 1
     end)
@@ -108,18 +108,29 @@ function scp_207.IncrementStat(ply)
 end
 
 /*
+* --! This method is shit, the math is not very good.
 * Return true if the entity will instant die.
+* @Player ply The player to kill if he is unlucky.
+* @Number percent The percent chance to kill the player.
 */
 function scp_207.InstanDeath(ply, percent)
     if (percent >= math.Rand(1, 100)) then ply:Kill() end
 end
 
+/*
+* Display a message on client side of a player.
+* @Player ply The player to print the message.
+* @String text The text to display to the player.
+*/
 function scp_207.PrintMessageInfo(ply, text)
 	net.Start(SCP_207_CONFIG.TextToSendToServer)
 		net.WriteString(text)
 	net.Send(ply)
 end
 
+/*
+* Start the overlay effect on a player.
+*/
 function scp_207.StartOverlayEffect(ply, index)
 	local IterationBySeconds = (SCP_207_CONFIG.MaxLoop - index) * SCP_207_CONFIG.TimeDecay
 	net.Start(SCP_207_CONFIG.StartOverlayEffect)
@@ -132,7 +143,8 @@ function scp_207.RemoveOverlayEffect(ply)
 	net.Send(ply)
 end
 /*
-* DEPRECATED
+* When call, add an hook on every door to check if a player can break it.
+* @Player ply The player who can break the doors
 */
 function scp_207.EventDoorsDestroyable(ply)
 	if (!IsValid(ply)) then return end
@@ -157,11 +169,19 @@ function scp_207.EventDoorsDestroyable(ply)
 	ply.scp207_CanDestroyDoors = true
 end
 
+/*
+* Remove the hook effect that check if a doors can be breakable.
+*/
 function scp_207.RemoveEventDoorsDestroyable()
 	if (!table.IsEmpty( SCP_207_CONFIG.PlayersCanBreakDoors)) then return end
 	hook.Remove( "Think", "Think.CheckDoorsBreakable_SCP207" )
 end
 
+/*
+* The method for break a door.
+* @Entity door the door who is about to be break, has to be a specific class door.
+* @Player ply The play who break the door.
+*/
 function scp_207.DestroyDoor(door, ply)
 	local PhysPly = ply:GetPhysicsObject()
 	if (PhysPly:GetVelocity():Length() < SCP_207_CONFIG.VelocityMinDestroyDoor) then return end
@@ -198,7 +218,10 @@ function scp_207.DestroyDoor(door, ply)
 	end
 end
 
-
+/*
+* It cure every effect from SCP 207 on a player, only used when a player died or change team.
+* @Player ply The player to cure.
+*/
 function scp_207.CureEffect(ply)
 	if (!ply.HasDrinkSCP207) then return end
 
@@ -223,6 +246,10 @@ function scp_207.CureEffect(ply)
 	ply.HasDrinkSCP207 = nil
 end
 
+/*
+* Check is a door is open or not.
+* @Entity door The door to check.
+*/
 function scp_207.DoorIsOpen( door )
 	if (door.IsBreak) then return true end
 	local doorClass = door:GetClass()

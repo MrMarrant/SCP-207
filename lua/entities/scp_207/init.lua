@@ -17,7 +17,6 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
--- TODO : Mettre les bon sons.
 local PhysicSoundLow = Sound( "physics/glass/glass_bottle_impact_hard"..math.random(1, 3)..".wav" )
 local BreakSound = Sound( "physics/glass/glass_bottle_break"..math.random(1, 2)..".wav" )
 local PickUpSound = Sound( "scp_207/pickup.mp3" )
