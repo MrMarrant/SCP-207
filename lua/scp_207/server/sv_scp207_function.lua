@@ -42,13 +42,13 @@ function scp_207.ConsumeSCP207(ply)
 	local percent = SCP_207_CONFIG.InitialChanceInstantDeath
 
 	scp_207.GetPreviousStatPlayer(ply)
-	timer.Create("Timer.scp207_Effect_"..ply:EntIndex(), SCP_207_CONFIG.TimeDecay, SCP_207_CONFIG.MaxLoop, function()
+	timer.Create("Timer.scp207_Effect_"..ply:EntIndex(), SCP_207_CONFIG.TimeDecay:GetInt(), SCP_207_CONFIG.MaxLoop, function()
         if not IsValid( ply ) then return end
 
 		scp_207.IncrementStat(ply)
 		scp_207.ApplyStateEffect(ply, index)
 
-		if (index >= 30) then
+		if (index >= 30 and !SCP_207_CONFIG.DisabledInstantKill:GetBool()) then
 			scp_207.InstanDeath(ply, percent)
 
 			if (!ply:Alive()) then return end
@@ -102,8 +102,8 @@ function scp_207.IncrementStat(ply)
 	local RunSpeed = ply.scp207_PreviousInfoData.RunSpeed
 	local JumpPower = ply.scp207_PreviousInfoData.JumpPower
 
-	ply:SetWalkSpeed( ply:GetWalkSpeed() + WalkSpeed * SCP_207_CONFIG.IncrementStat )
-	ply:SetRunSpeed( ply:GetRunSpeed()  + RunSpeed * SCP_207_CONFIG.IncrementStat )
+	ply:SetWalkSpeed( ply:GetWalkSpeed() + WalkSpeed * SCP_207_CONFIG.IncrementStat:GetFloat() )
+	ply:SetRunSpeed( ply:GetRunSpeed()  + RunSpeed * SCP_207_CONFIG.IncrementStat:GetFloat() )
 	ply:SetJumpPower( ply:GetJumpPower()  + JumpPower * SCP_207_CONFIG.IncrementStatJump )
 end
 
@@ -132,7 +132,7 @@ end
 * Start the overlay effect on a player.
 */
 function scp_207.StartOverlayEffect(ply, index)
-	local IterationBySeconds = (SCP_207_CONFIG.MaxLoop - index) * SCP_207_CONFIG.TimeDecay
+	local IterationBySeconds = (SCP_207_CONFIG.MaxLoop - index) * SCP_207_CONFIG.TimeDecay:GetInt()
 	net.Start(SCP_207_CONFIG.StartOverlayEffect)
 		net.WriteUInt(IterationBySeconds, 12) --! Max is 4095 with 12
 	net.Send(ply)

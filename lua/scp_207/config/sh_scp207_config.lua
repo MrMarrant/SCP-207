@@ -15,9 +15,9 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 SCP_207_CONFIG.PathJobNotAllowed = "data_scp_207/scp_207.json"
-SCP_207_CONFIG.TimeDecay = 60 -- Numbers of second between each state.
+SCP_207_CONFIG.TimeDecay = CreateConVar( "SCP207_TimeDecay", 60, {FCVAR_PROTECTED, FCVAR_ARCHIVE}, "Time in seconds for each cycle", 1, 300 ) -- Numbers of second between each state.
 SCP_207_CONFIG.MaxLoop = 48 -- Max loop of the effect from SCP207, one loop equal to duration of SCP_207_CONFIG.TimeDecay
-SCP_207_CONFIG.IncrementStat = 0.1
+SCP_207_CONFIG.IncrementStat = CreateConVar( "SCP207_IncrementStat", 0.1, {FCVAR_PROTECTED, FCVAR_ARCHIVE}, "The increment stat for walking/running speed, 1 mean it will double the speed value for each cycle, 0.1 only 10%", 0.01, 1 ) -- Numbers of second between each state.
 SCP_207_CONFIG.IncrementStatJump = 0.05
 SCP_207_CONFIG.IncrementChanceDeath = 2
 SCP_207_CONFIG.InitialChanceInstantDeath = 0
@@ -25,6 +25,7 @@ SCP_207_CONFIG.RadiusCollisionDoor = 30
 SCP_207_CONFIG.VelocityMinDestroyDoor = 300
 SCP_207_CONFIG.DamageTakeBreakingDoor = 20
 SCP_207_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
+SCP_207_CONFIG.DisabledInstantKill = CreateConVar( "SCP207_DisabledInstantKill", 0, {FCVAR_PROTECTED, FCVAR_ARCHIVE}, "If enable, disabled the instant death apply to the consumer of SCP-207", 0, 1 )
 SCP_207_CONFIG.JobNotAllowed = {}
 SCP_207_CONFIG.HandledLanguage = {
     "fr",

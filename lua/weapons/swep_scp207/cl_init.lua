@@ -22,4 +22,3 @@ SWEP.Purpose = "Drink 'til We Die"
 SWEP.DrawCrosshair = false
 SWEP.Base = "weapon_base"
 SWEP.AutoSwitchTo = false
-SWEP.AutoSwitchFrom = false

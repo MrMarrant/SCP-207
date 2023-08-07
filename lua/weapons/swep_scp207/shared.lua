@@ -59,7 +59,7 @@ function SWEP:Deploy()
 	self:SetPlaybackRate( speedAnimation )
 	local VMAnim = ply:GetViewModel()
 	local NexIdle = VMAnim:SequenceDuration() / VMAnim:GetPlaybackRate() 
-	self:SetNextPrimaryFire( CurTime() + NexIdle )
+	self:SetNextPrimaryFire( CurTime() + NexIdle + 0.1 ) --? We add 0.1s for avoid to cancel primary animation
 	self:SetNextSecondaryFire( CurTime() + NexIdle )
 	timer.Simple(NexIdle, function()
 		if(!self:IsValid()) then return end
