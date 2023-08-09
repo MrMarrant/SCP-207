@@ -24,10 +24,10 @@ SWEP.Spawnable = true
 
 SWEP.Category = "SCP"
 SWEP.ViewModel = Model( "models/weapons/scp_207/v_scp_207.mdl" )
-SWEP.WorldModel = ""
+SWEP.WorldModel = Model( "models/weapons/scp_207/w_scp_207.mdl" )
 
 SWEP.ViewModelFOV = 65
-SWEP.HoldType = "normal"
+SWEP.HoldType = "slam"
 SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = -1
@@ -75,11 +75,14 @@ function SWEP:PrimaryAttack()
 	local NexIdle = VMAnim:SequenceDuration() / VMAnim:GetPlaybackRate()
 	timer.Simple(NexIdle - 2.5, function()
 		if(!self:IsValid()) then return end
-		sound.Play( DrinkSound, self:GetOwner():GetPos(), 75 )	
-		self:GetOwner():SetAnimation( PLAYER_ATTACK1 )
+
+		if SERVER then 
+			sound.Play( DrinkSound, self:GetOwner():GetPos(), 75 )
+		end
 	end)
 	timer.Simple(NexIdle, function()
 		if(!self:IsValid() or !self:GetOwner():IsValid() or CLIENT) then return end
+
 		scp_207.ConsumeSCP207(self:GetOwner())
 		self:Remove()
 	end)
