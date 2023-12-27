@@ -142,6 +142,7 @@ function scp_207.RemoveOverlayEffect(ply)
 	net.Start(SCP_207_CONFIG.RemoveOverlayEffect)
 	net.Send(ply)
 end
+
 /*
 * When call, add an hook on every door to check if a player can break it.
 * @Player ply The player who can break the doors
@@ -150,23 +151,38 @@ function scp_207.EventDoorsDestroyable(ply)
 	if (!IsValid(ply)) then return end
 
 	if (table.IsEmpty( SCP_207_CONFIG.PlayersCanBreakDoors)) then
-		hook.Add( "Think", "Think.CheckDoorsBreakable_SCP207", function()
-			for class, value in pairs(SCP_207_CONFIG.DoorClass) do
-				local DoorsFounded = ents.FindByClass( class )
-				for key, door in ipairs(DoorsFounded) do
-					local PlayersFound = ents.FindInSphere( door:GetPos(), SCP_207_CONFIG.RadiusCollisionDoor )
-					for key, entPly in ipairs(PlayersFound) do
-						if (entPly:IsPlayer() and entPly.scp207_CanDestroyDoors) then
-							scp_207.DestroyDoor(door, entPly)
-						end
-					end
-				end
-			end
-		end )
+		scp_207.AddHookCheckDoor()
 	end
 
 	SCP_207_CONFIG.PlayersCanBreakDoors[ply:EntIndex()] = true
 	ply.scp207_CanDestroyDoors = true
+end
+
+/*
+* Add the hook to check if player can destroy doors.
+*/
+function scp_207.AddHookCheckDoor()
+	hook.Add( "Think", "Think.CheckDoorsBreakable_SCP207", function()
+		for key, value in pairs(SCP_207_CONFIG.PlayersCanBreakDoors) do
+			local ent = Entity(key)
+			scp_207.CheckDoor(ent)
+		end
+	end )
+end
+
+/*
+* Check if a player is nearby a door and if he can break it.
+* @Player ply The player we check if he's near a door.
+*/
+function scp_207.CheckDoor(ply)
+	if (not IsValid(ply)) then return end
+	local doorsFound = ents.FindInSphere( ply:GetPos(), SCP_207_CONFIG.RadiusCollisionDoor )
+	for key, door in ipairs(doorsFound) do
+		if (SCP_207_CONFIG.DoorClass[door:GetClass()]) then
+			scp_207.DestroyDoor(door, ply)
+			break --? We destroy only the first door found.
+		end
+	end
 end
 
 /*
