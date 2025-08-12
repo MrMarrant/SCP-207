@@ -207,9 +207,16 @@ function scp_207.DestroyDoor(door, ply)
 		BrokenDoor:SetPos(door:GetPos())
 		BrokenDoor:SetAngles(door:GetAngles())
 		BrokenDoor:SetModel(door:GetModel())
-		BrokenDoor:SetBodyGroups(door:GetBodyGroups())
 		BrokenDoor:SetSkin(door:GetSkin())
 		BrokenDoor:SetCustomCollisionCheck(true)
+
+		local bgString = ""
+		local bgCount = door:GetNumBodyGroups()
+
+		for i = 1, bgCount do
+			bgString = bgString .. door:GetBodygroup(i)
+		end
+		BrokenDoor:SetBodyGroups(bgString)
 	
 		door:Remove()
 	
